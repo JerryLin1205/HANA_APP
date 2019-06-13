@@ -1,26 +1,33 @@
 {
-	"welcomeFile": "index.html",
+	"welcomeFile": "welcome.html",
 	"authenticationMethod": "route",
 	"routes": [{
 		"source": "(.*)(.xsjs)",
 		"destination": "core-xsjs-backend",
 		"csrfProtection": false,
-		"authenticationType": "xsuaa"
+		"authenticationType": "xsuaa",
+		"scope":"$XSAPPNAME.create"
 		}, {
 		  "source": "(.*)(.xsodata)",
 		  "destination": "core-xsjs-backend",
-		  "authenticationType": "xsuaa"
+		  "authenticationType": "xsuaa",
+		  "scope":"$XSAPPNAME.view"
 		},{
 		"source": "/(.*)",
 		"localDir": "resources",
 		"authenticationType": "xsuaa",
+		"scope":"$XSAPPNAME.view",
 		"replace": {
-			"pathSuffixes": ["index.html", "odataTest.html"],
+			"pathSuffixes": ["index.html","welcome.html", "odataTest.html"],
 			"services": {
 				"sapui5_sb": {
 					"tag": "ui5"
 					}
 				}		
 			}
-		}]
+		},{
+		"source": "^/(.*)$",
+		"localDir" : "resources",
+		"scope" : "$XSAPPNAME.view"
+   }]
 }

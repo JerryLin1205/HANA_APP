@@ -3,10 +3,10 @@ _schema-version: '2.1'
 version: 0.0.1
 modules:
   - name: web
-    type: html5
+    type: html5 
     path: web
     requires:
-      - name: UAA-service
+      - name: JL-UAA-service
       - name: core_xsjs_api
         group: destinations
         properties:
@@ -21,25 +21,11 @@ modules:
       - name: hdi_db
         properties:
           TARGET_CONTAINER: '~{hdi-container-name}'
-  
       - name: cross-container-service-1
         group: SERVICE_REPLACEMENTS
-
         properties:
           key: ServiceName_1
           service: ~{the-service-name}
-                            
-
-
-  
-      - name: cross-container-service-2
-        group: SERVICE_REPLACEMENTS
-
-        properties:
-          key: ServiceName_2
-          service: ~{the-service-name}
-                            
-
 
   - name: core_xsjs
     type: nodejs
@@ -49,11 +35,11 @@ modules:
         properties:
           url: '${default-url}'
     requires:
-      - name: UAA-service
+      - name: JL-UAA-service
       - name: hdi_db
       - name: db
 resources:
-  - name: UAA-service
+  - name: JL-UAA-service
     type: com.sap.xs.uaa-space
     parameters:
       config-path: ./xs-security.json
@@ -75,14 +61,6 @@ resources:
   - name: cross-container-service-1
     parameters:
        service-name: CROSS_SCHEMA_PRODUCTS2
-    properties:
-       the-service-name: ${service-name}
-    type: org.cloudfoundry.existing-service
-
-
-  - name: cross-container-service-2
-    parameters:
-       service-name: I502772-ewdwvxvk0jf390wk-TK-hdi_db
     properties:
        the-service-name: ${service-name}
     type: org.cloudfoundry.existing-service
